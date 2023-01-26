@@ -6,7 +6,7 @@
 /*   By: sogabrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 16:15:21 by sogabrie          #+#    #+#             */
-/*   Updated: 2023/01/26 21:20:59 by sogabrie         ###   ########.fr       */
+/*   Updated: 2023/01/26 23:24:54 by sogabrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,6 @@ char	*get_next_line(int fd);
 int		s_len(char *ptr);
 int		char_n(char *ptr);
 char	*get_and_clean(char *ptr);
-int		frret(char *a);
+char	*frret(char *a);
 
 #endif

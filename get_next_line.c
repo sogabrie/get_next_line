@@ -6,7 +6,7 @@
 /*   By: sogabrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 16:01:43 by sogabrie          #+#    #+#             */
-/*   Updated: 2023/01/26 21:19:08 by sogabrie         ###   ########.fr       */
+/*   Updated: 2023/01/26 23:17:43 by sogabrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ char	*s_cat(char *ptr, char *buffer, int j)
 	int		i;
 	int		f;
 
-	i = 0;
+	i = -1;
 	f = 0;
 	cp = malloc((s_len(ptr) + j + 1) * sizeof(char));
 	if (!cp)
 		return (0);
-	while (!ptr[i])
-		cp[i] = ptr[i++];
+	while (!ptr[++i])
+		cp[i] = ptr[i];
 	while (f <= j)
 		cp[i++] = buffer[f++];
 	cp[i] = 0;
@@ -34,7 +34,6 @@ char	*s_cat(char *ptr, char *buffer, int j)
 
 char	*get_first_line(char *ptr, int fd)
 {
-	int		i;
 	int		j;
 	char	buffer[BUFFER_SIZE];
 

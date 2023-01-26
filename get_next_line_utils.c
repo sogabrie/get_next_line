@@ -6,17 +6,17 @@
 /*   By: sogabrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 21:06:29 by sogabrie          #+#    #+#             */
-/*   Updated: 2023/01/26 22:22:08 by sogabrie         ###   ########.fr       */
+/*   Updated: 2023/01/26 23:29:31 by sogabrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int	frret(char *a)
+char	*frret(char *a)
 {
 	if (!a)
 		free(a);
-	return (0)
+	return (0);
 }
 
 int	s_len(char *ptr)
@@ -46,17 +46,37 @@ int	char_n(char *ptr)
 	return (0);
 }
 
+void	s_cp(char *s1, char *s2, int i)
+{
+	int	j;
+
+	j = 0;
+	while (i > j)
+		s1[j] = s2[j];
+	s1[j] = 0;
+}
+
 char	*get_and_clean(char *ptr)
 {
 	char	*lin;
+	char	*linptr;
 	int		i;
 	int		j;
 
 	i = 0;
-	j = char_n(ptr) + 1;
-	if (j == 1)
-		return (frret(ptr));
-	line = malloc(j * sizeof(char));
-	if (!line)
-		return (frret(ptr));
-
+	j = char_n(ptr);
+	if (!j)
+		return ((char *)frret(ptr));
+	lin = malloc((j + 1) * sizeof(char));
+	linptr = malloc((s_len(ptr) - j + 1) * sizeof(char));
+	if (!lin || !linptr)
+	{
+		frret(linptr);
+		return ((char *)frret(ptr));
+	}
+	s_cp(lin, ptr, j);
+	s_cp(linptr, ptr + j, s_len(ptr) - j + 1);
+	free(ptr);
+	ptr = linptr;
+	return (lin);
+}
