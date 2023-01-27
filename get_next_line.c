@@ -6,7 +6,7 @@
 /*   By: sogabrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 16:01:43 by sogabrie          #+#    #+#             */
-/*   Updated: 2023/01/27 20:52:38 by sogabrie         ###   ########.fr       */
+/*   Updated: 2023/01/27 22:26:21 by sogabrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,13 +89,18 @@ char	*get_next_line(int fd)
 	//printf("ptr =%s\n", ptr);
 	if (!ptr || !ptr[0])
 		return (frret(ptr));
-	if (char_n(ptr) == -1)
+	if (char_n(ptr) != -1)
 		ptr = get_and_clean(ptr, &line);
 	else
 	{
-		line = ptr;
+		//printf("ppppppppppp = %d\n", 0 == line);
+		//line = ptr;
+		line = malloc((s_len(ptr) + 1) * sizeof(char));
+		s_cp(line, ptr, s_len(ptr));
+		frret(ptr);
 		ptr = 0;
 	}
 	//printf("ptr = %s\nline =%s\n",ptr, line);
+	//free(ptr);
 	return (line);
 }

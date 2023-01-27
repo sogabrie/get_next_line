@@ -6,7 +6,7 @@
 /*   By: sogabrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 16:15:21 by sogabrie          #+#    #+#             */
-/*   Updated: 2023/01/27 18:50:39 by sogabrie         ###   ########.fr       */
+/*   Updated: 2023/01/27 22:11:14 by sogabrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,6 @@ int		s_len(char *ptr);
 int		char_n(char *ptr);
 char	*get_and_clean(char *ptr, char **lin);
 char	*frret(char *a);
+void	s_cp(char *s1, char *s2, int i);
 
 #endif
