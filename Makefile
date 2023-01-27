@@ -1,13 +1,11 @@
 CC = cc
 #CFLAGS = -L. -lftprintf -o 
 
-all: a 
+all: a
 
-a: *.o
-	$(CC) *.o -o a 
+a: *.c Makefile get_next_line.h
+	$(CC) *.c -o a 
 
-*.o : *.c
-	$(CC) -c *.c
 
 clean:
 	rm -rf  a
