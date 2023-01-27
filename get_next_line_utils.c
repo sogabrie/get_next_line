@@ -6,7 +6,7 @@
 /*   By: sogabrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 21:06:29 by sogabrie          #+#    #+#             */
-/*   Updated: 2023/01/27 20:17:59 by sogabrie         ###   ########.fr       */
+/*   Updated: 2023/01/27 20:50:59 by sogabrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	char_n(char *ptr)
 			return (i);
 		++i;
 	}
-	return (0);
+	return (-1);
 }
 
 void	s_cp(char *s1, char *s2, int i)
@@ -69,13 +69,13 @@ char	*get_and_clean(char *ptr, char **lin)
 	//printf("wwwwwwwwww\n");
 	if (!i)
 		return ((char *)frret(ptr));
-	if (!j)
+	if (j == -1)
 	{
 		//printf("hhhhhhhhhhhhhhptr = %s\nlin =%s\n", ptr, *lin);
 		*lin = ptr;
 		return (0);
 	}
-	*lin = malloc((j + 2) * sizeof(char));
+	*lin = malloc((j + 1) * sizeof(char));
 	linptr = malloc((i - j + 1) * sizeof(char));
 	if (!*lin || !linptr)
 	{

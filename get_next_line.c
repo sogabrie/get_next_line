@@ -6,7 +6,7 @@
 /*   By: sogabrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 16:01:43 by sogabrie          #+#    #+#             */
-/*   Updated: 2023/01/27 20:25:21 by sogabrie         ###   ########.fr       */
+/*   Updated: 2023/01/27 20:52:38 by sogabrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*get_first_line(char *ptr, int fd)
 	char	buffer[BUFFER_SIZE];
 
 	j = 1;
-	while (!char_n(ptr) && j)
+	while (char_n(ptr) == -1 && j)
 	{
 		//printf("ffffffff\n");
 		j = read(fd, buffer, BUFFER_SIZE);
@@ -83,12 +83,13 @@ char	*get_next_line(int fd)
 	}
 	//printf("ptr = %s\nptr_n = %d\nsize = %d\n", ptr, char_n(ptr), s_len(ptr));
 	//printf("ptr = %s\n", ptr);
-	if (!char_n(ptr))
+	//printf("char_n = %d\n",char_n(ptr));
+	if (char_n(ptr) == -1)
 		ptr = get_first_line(ptr, fd);
 	//printf("ptr =%s\n", ptr);
 	if (!ptr || !ptr[0])
 		return (frret(ptr));
-	if (char_n(ptr))
+	if (char_n(ptr) == -1)
 		ptr = get_and_clean(ptr, &line);
 	else
 	{
