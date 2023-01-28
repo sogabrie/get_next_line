@@ -6,7 +6,7 @@
 /*   By: sogabrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 16:01:43 by sogabrie          #+#    #+#             */
-/*   Updated: 2023/01/28 19:12:29 by sogabrie         ###   ########.fr       */
+/*   Updated: 2023/01/28 19:41:22 by sogabrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*s_cat(char *ptr, char *buffer, int j)
 	f = 0;
 	cp = malloc((s_len(ptr) + j + 1) * sizeof(char));
 	if (!cp)
-		return (frret(ptr));
+		return (0);
 	while (ptr && ptr[i])
 	{
 		cp[i] = ptr[i];
@@ -31,7 +31,7 @@ char	*s_cat(char *ptr, char *buffer, int j)
 	while (buffer[f])
 		cp[i++] = buffer[f++];
 	cp[i] = 0;
-	//frret(ptr);
+	printf("(ptr= %p)",cp);
 	return (cp);
 }
 
@@ -42,20 +42,17 @@ char	*get_first_line(char *ptr, int fd)
 	char	buffer[BUFFER_SIZE + 1];
 
 	j = 1;
-	//printf("aaaaaaaaa\n");
 	while (!char_n(ptr) && j)
 	{
 		j = read(fd, buffer, BUFFER_SIZE);
 		buffer[j] = 0;
 		if (j > 0)
 		{
-			//printf("buffer = %s\n",buffer);
 			pt2 = s_cat(ptr, buffer, j);
-			if (!ptr)
-				free(ptr);
+			free(ptr);
 			ptr = pt2;
 			if (!ptr)
-				return (ptr);
+				return (0);
 			//printf("ptr = %s\n",ptr);
 		}
 		else if (j < 0)
@@ -82,7 +79,7 @@ char	*get_next_line(int fd)
 	//printf("char_n(ptr) = %d\n",char_n(ptr));
 	if (!char_n(ptr))
 	{
-		line = get_and_clean(&ptr);
+		line = get_and_clean(ptr);
 		free(ptr);
 		ptr = 0;
 	}
@@ -91,8 +88,8 @@ char	*get_next_line(int fd)
 		line = malloc((char_n(ptr) + 1) * sizeof(char));
 		if (!line)
 			return (frret(ptr));
-		line = get_and_clean(&ptr);
-		ptr = get_and_clean_ptr(&ptr);
+		line = get_and_clean(ptr);
+		ptr = get_and_clean_ptr(ptr);
 	}
 	return (line);
 }
