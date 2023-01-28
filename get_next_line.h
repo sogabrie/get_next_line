@@ -24,10 +24,10 @@
 
 char	*get_next_line(int fd);
 int		s_len(char *ptr);
-int		char_n(char *ptr);
+char	*char_n(char *ptr);
 char	*get_and_clean(char *ptr);
 char	*get_and_clean_ptr(char	*ptr);
-char	*frret(char *a);
+//char	*frret(char *a);
 char	*s_cp(char *s1, char *s2, int i);
 
 
