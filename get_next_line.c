@@ -6,7 +6,7 @@
 /*   By: sogabrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 16:01:43 by sogabrie          #+#    #+#             */
-/*   Updated: 2023/01/27 22:26:21 by sogabrie         ###   ########.fr       */
+/*   Updated: 2023/01/28 19:12:29 by sogabrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,44 +18,49 @@ char	*s_cat(char *ptr, char *buffer, int j)
 	int		i;
 	int		f;
 
-	i = -1;
+	i = 0;
 	f = 0;
 	cp = malloc((s_len(ptr) + j + 1) * sizeof(char));
 	if (!cp)
-		return (0);
-	while (ptr[++i])
+		return (frret(ptr));
+	while (ptr && ptr[i])
+	{
 		cp[i] = ptr[i];
-	//printf("i = %d\nj = %d\n", i, j);
-	while (f < j)
+		++i;
+	}
+	while (buffer[f])
 		cp[i++] = buffer[f++];
 	cp[i] = 0;
-	//printf("cp =%s\n",cp);
-	free(ptr);
-	ptr = 0;
+	//frret(ptr);
 	return (cp);
 }
 
 char	*get_first_line(char *ptr, int fd)
 {
 	int		j;
-	char	buffer[BUFFER_SIZE];
+	char	*pt2;
+	char	buffer[BUFFER_SIZE + 1];
 
 	j = 1;
-	while (char_n(ptr) == -1 && j)
+	//printf("aaaaaaaaa\n");
+	while (!char_n(ptr) && j)
 	{
-		//printf("ffffffff\n");
 		j = read(fd, buffer, BUFFER_SIZE);
-		//printf("j = %d\n", j);
+		buffer[j] = 0;
 		if (j > 0)
 		{
-			ptr = s_cat(ptr, buffer, j);
+			//printf("buffer = %s\n",buffer);
+			pt2 = s_cat(ptr, buffer, j);
 			if (!ptr)
-				return (0);
+				free(ptr);
+			ptr = pt2;
+			if (!ptr)
+				return (ptr);
+			//printf("ptr = %s\n",ptr);
 		}
 		else if (j < 0)
 		{
 			free(ptr);
-			ptr = 0;
 			return (0);
 		}
 	}
@@ -66,41 +71,28 @@ char	*get_next_line(int fd)
 	static char	*ptr;
 	char		*line;
 
-	if (!ptr && read(fd, 0, 0) >= 0)
+	if (fd < 0 )
 	{
-		ptr = malloc((BUFFER_SIZE + 1) * sizeof(char));
-		if (!ptr)
-			return (0);
-		ptr[0] = 0;
-	}
-	//printf("read = %zd\n",read(fd, 0 ,0));
-	if (fd < 1 || !BUFFER_SIZE || (0 > read(fd, 0, 0)))
-	{
-		//printf("fre ptr\n");
-		//printf("ptr =%s\n", ptr);
-		frret(ptr);
 		return (0);
 	}
-	//printf("ptr = %s\nptr_n = %d\nsize = %d\n", ptr, char_n(ptr), s_len(ptr));
-	//printf("ptr = %s\n", ptr);
-	//printf("char_n = %d\n",char_n(ptr));
-	if (char_n(ptr) == -1)
+	if (!char_n(ptr))
 		ptr = get_first_line(ptr, fd);
-	//printf("ptr =%s\n", ptr);
-	if (!ptr || !ptr[0])
-		return (frret(ptr));
-	if (char_n(ptr) != -1)
-		ptr = get_and_clean(ptr, &line);
-	else
+	if (!ptr)
+		return (0);
+	//printf("char_n(ptr) = %d\n",char_n(ptr));
+	if (!char_n(ptr))
 	{
-		//printf("ppppppppppp = %d\n", 0 == line);
-		//line = ptr;
-		line = malloc((s_len(ptr) + 1) * sizeof(char));
-		s_cp(line, ptr, s_len(ptr));
-		frret(ptr);
+		line = get_and_clean(&ptr);
+		free(ptr);
 		ptr = 0;
 	}
-	//printf("ptr = %s\nline =%s\n",ptr, line);
-	//free(ptr);
+	else
+	{
+		line = malloc((char_n(ptr) + 1) * sizeof(char));
+		if (!line)
+			return (frret(ptr));
+		line = get_and_clean(&ptr);
+		ptr = get_and_clean_ptr(&ptr);
+	}
 	return (line);
 }

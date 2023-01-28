@@ -6,7 +6,7 @@
 /*   By: sogabrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 21:06:29 by sogabrie          #+#    #+#             */
-/*   Updated: 2023/01/27 22:11:19 by sogabrie         ###   ########.fr       */
+/*   Updated: 2023/01/28 19:03:20 by sogabrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	*frret(char *a)
 {
 	if (!a)
 		free(a);
-	a = 0;
+	//a = 0;
 	return (0);
 }
 
@@ -35,58 +35,73 @@ int	s_len(char *ptr)
 int	char_n(char *ptr)
 {
 	int i;
+	int	j;
 
-	i = 0;
+	i = 1;
+	j = 0;
 	if (!ptr)
 		return (0);
-	while (ptr[i])
+	while (ptr[j])
 	{
-		if (ptr[i] == '\n')
+		//printf("ptr = %d\nn",ptr[j]);
+		if (ptr[j] == '\n')
 			return (i);
 		++i;
+		++j;
 	}
-	return (-1);
+	return (0);
 }
 
-void	s_cp(char *s1, char *s2, int i)
+char	*s_cp(char *s1, char *s2, int i)
 {
 	int	j;
 
 	j = -1;
-	while (i > ++j)
+	while (i > ++j && s2[j] != 0)
 		s1[j] = s2[j];
 	s1[j] = 0;
+	return (s1);
 }
 
-char	*get_and_clean(char *ptr, char **lin)
+char	*get_and_clean(char **ptr)
 {
-	char	*linptr;
+	char	*lin;
 	int		i;
 	int		j;
 
-	i = s_len(ptr);
-	j = char_n(ptr);
-	//printf("wwwwwwwwww\n");
+	i = s_len(*ptr);
+	j = char_n(*ptr);
 	if (!i)
-		return ((char *)frret(ptr));
-	if (j == -1)
+		return ((char *)frret(*ptr));
+	lin = malloc((j + 1) * sizeof(char));
+	if (!lin)
 	{
-		//printf("hhhhhhhhhhhhhhptr = %s\nlin =%s\n", ptr, *lin);
-		*lin = ptr;
+		if (!ptr)
+			free(*ptr);
 		return (0);
 	}
-	*lin = malloc((j + 1) * sizeof(char));
-	linptr = malloc((i - j + 1) * sizeof(char));
-	if (!*lin || !linptr)
+	if (!j)
 	{
-		frret(linptr);
-		frret(*lin);
-		return ((char *)frret(ptr));
+		lin = s_cp(lin, *ptr, i + 1);
+		if (!ptr)
+			free(*ptr);
+		return (lin);
 	}
-	s_cp(*lin, ptr, j + 1);
-	s_cp(linptr, (ptr + j + 1), (s_len(ptr) - j + 1));
-	//printf("linptr = %s\nlin =%s\n", linptr, *lin);
-	frret(ptr);
-	ptr = linptr;
-	return (ptr);
+	lin = s_cp(lin, *ptr, j);
+	return (lin);
+}
+
+char	*get_and_clean_ptr(char **ptr)
+{
+	int	i;
+	char	*ptr2;
+
+	i = char_n(*ptr);
+	ptr2 = malloc((s_len(*ptr) - i + 1) * sizeof(char));
+	if (!ptr2)
+		return (frret(*ptr));
+	ptr2 = s_cp(ptr2,(*ptr + i), (s_len(*ptr) - i));
+	if (!ptr)
+		free(*ptr);
+	return (ptr2);
 }
