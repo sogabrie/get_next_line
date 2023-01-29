@@ -2,8 +2,10 @@
 
 int	main()
 {
+	//printf("qqqqqqqqq\n");
 	int b = open("a1.txt", O_RDONLY);
 	char *a = get_next_line(b);
+	printf("eeeeeeeeeeeeee\n");
 	if (a)
 		printf("get_next1 == %s|\n", a);
 		//free(a);

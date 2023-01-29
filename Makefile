@@ -8,4 +8,4 @@ a: *.c Makefile get_next_line.h
 	$(CC) *.c -o a
 
 clean:
-	rm -rf  a
+	rm -rf  a *.o

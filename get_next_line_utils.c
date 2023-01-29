@@ -6,12 +6,11 @@
 /*   By: sogabrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 21:06:29 by sogabrie          #+#    #+#             */
-/*   Updated: 2023/01/28 19:16:48 by sogabrie         ###   ########.fr       */
+/*   Updated: 2023/01/29 15:21:09 by sogabrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
 
 int	s_len(char *ptr)
 {
@@ -27,7 +26,7 @@ int	s_len(char *ptr)
 
 char	*char_n(char *ptr)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!ptr)
@@ -53,12 +52,12 @@ char	*get_and_clean(char *ptr)
 		++i;
 	lin = malloc((i + 2) * sizeof(char));
 	if (!lin)
-		free(0);
+		return (0);
 	i = 0;
 	while (ptr[i] && ptr[i] != '\n')
 	{
 		lin[i] = ptr[i];
-		++i;	
+		++i;
 	}
 	if (ptr[i] == '\n')
 	{
@@ -71,12 +70,12 @@ char	*get_and_clean(char *ptr)
 
 char	*get_and_clean_ptr(char *ptr)
 {
-	int	i;
-	int j;
+	int		i;
+	int		j;
 	char	*ptr2;
 
 	i = 0;
-	while (ptr[i] && ptr[i] == '\n')
+	while (ptr[i] && ptr[i] != '\n')
 		++i;
 	if (!ptr[i])
 	{
@@ -89,11 +88,7 @@ char	*get_and_clean_ptr(char *ptr)
 	++i;
 	j = 0;
 	while (ptr[i])
-	{
-		ptr2[j] = ptr[i];
-		++i;
-		++j;
-	}
+		ptr2[j++] = ptr[i++];
 	ptr2[j] = 0;
 	free(ptr);
 	return (ptr2);
