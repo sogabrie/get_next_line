@@ -1,0 +1,11 @@
+CC = cc
+#CFLAGS = -L. -lftprintf -o 
+
+all: b
+
+b: *.c Makefile get_next_line.h
+	#$(CC) -fsanitize=address -g *.c -o a 
+	$(CC) main_b.c get_next_line_bonus.c get_next_line_utils_bonus.c -o b
+
+clean:
+	rm -rf  b

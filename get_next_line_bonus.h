@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sogabrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/26 16:15:21 by sogabrie          #+#    #+#             */
-/*   Updated: 2023/01/29 16:53:02 by sogabrie         ###   ########.fr       */
+/*   Created: 2023/01/29 16:36:55 by sogabrie          #+#    #+#             */
+/*   Updated: 2023/01/29 16:53:14 by sogabrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <fcntl.h>
-# include <limits.h>
 
 char	*get_next_line(int fd);
 int		s_len(char *ptr);
